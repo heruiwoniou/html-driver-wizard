@@ -1,0 +1,35 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "rimraf dist/* && cd dist && mkdir style && cd style && mkdir fonts && cd .. && cd .. && node build/dev.js"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "autoprefixer-stylus": "^0.14.0",
+    "cross-env": "^5.0.5",
+    "electron": "~1.6.2",
+    "rimraf": "^2.6.2",
+    "stylus": "^0.54.5",
+    "typescript": "^2.5.2"
+  },
+  "dependencies": {
+    "merge": "^1.2.0",
+    "psd": "^3.2.0",
+    "tslib": "^1.7.1",
+    "virtual-dom": "^2.1.1"
+  }
+}

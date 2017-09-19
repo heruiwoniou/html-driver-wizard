@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "dist/script",
+    "target": "es5",
+    "sourceMap": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es6",
+      "es2016"
+    ],
+    "jsx": "react",
+    "allowJs": true,
+    "jsxFactory": "h",
+    "experimentalDecorators": true
+  },
+  "include": [
+    "src/scripts/**/*"
+  ]
+}
