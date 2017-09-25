@@ -1,4 +1,4 @@
-import Base from "./base";
+import Base from "./../base";
 import { relative } from "../decorators/position";
 import Container from "./container"
 import { BaseDisplay } from "../const";

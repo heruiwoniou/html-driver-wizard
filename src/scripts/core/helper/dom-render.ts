@@ -1,6 +1,6 @@
-import diff from 'virtual-dom/diff';
-import patch from 'virtual-dom/patch';
-import create from 'virtual-dom/create-element';
+import * as diff from 'virtual-dom/diff';
+import * as patch from 'virtual-dom/patch';
+import * as create from 'virtual-dom/create-element';
 import { VNode } from 'virtual-dom';
 
 export default class DomRender {

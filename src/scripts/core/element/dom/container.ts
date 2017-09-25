@@ -1,7 +1,7 @@
-import Base from "./base";
+import Base from "./../base";
 import { VProperties } from "virtual-dom";
-import { BaseDisplay } from "../const";
-import merge from 'merge'
+import { BaseDisplay } from "../const"
+import * as merge from 'merge'
 
 interface IContainerparameter {
   x: number,

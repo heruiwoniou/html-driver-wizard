@@ -1,10 +1,10 @@
-import { push, splice, forEach, slice } from './../utils';
+import { push, splice, forEach, slice } from './utils';
 import { VProperties } from 'virtual-dom';
-import h from 'virtual-dom/h'
-import { absolute } from '../decorators/position';
-import merge from 'merge'
-import { Mounted } from '../hook';
-import events = require('events')
+import * as h from 'virtual-dom/h'
+import { absolute } from './decorators/position';
+import * as merge from 'merge'
+import { Mounted } from './hook'
+import * as events from 'events'
 
 @absolute
 export default class Base extends events.EventEmitter {

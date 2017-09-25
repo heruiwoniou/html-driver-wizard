@@ -1,9 +1,7 @@
 import DomRender from "./../core/helper/dom-render";
-import Background from "./../core/dom/controls/background";
-import Container from "./../core/dom/controls/container";
-import Chart from "./../core/dom/controls/chart";
-import Base from "../core/dom/controls/base";
-import events = require('events')
+import * as events from 'events'
+import Background from "../core/element/dom/background";
+import Base from "../core/element/base";
 
 export default class HtmlEditor extends events.EventEmitter {
 

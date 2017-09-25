@@ -1,6 +1,7 @@
 const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
+const ipc = require('electron').ipcMain
 
 const path = require('path')
 const url = require('url')
@@ -19,6 +20,11 @@ function createWindow() {
 
   mainWindow.on('closed', function () {
     mainWindow = null
+  })
+
+
+  ipc.on('win-close', function () {
+    mainWindow.close();
   })
 }
 app.on('ready', createWindow)

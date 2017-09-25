@@ -3,7 +3,7 @@
     "module": "commonjs",
     "outDir": "dist/script",
     "target": "es5",
-    "sourceMap": true,
+    "sourceMap": false,
     "importHelpers": true,
     "moduleResolution": "node",
     "lib": [

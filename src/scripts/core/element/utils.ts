@@ -1,4 +1,4 @@
-import merge from 'merge'
+import merge = require('merge')
 
 const _push = Array.prototype.push
 const _splice = Array.prototype.splice

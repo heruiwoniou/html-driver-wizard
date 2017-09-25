@@ -1,7 +1,6 @@
-import h from "virtual-dom/h";
+import * as h from "virtual-dom/h";
 import DomRender from "./dom-render"
-import Base from "../dom/controls/base";
-import { BaseDisplay } from "../dom/const";
+import { BaseDisplay } from "../element/const";
 
 interface ICurrent {
   staticX: number, staticY: number, width: number, height: number, el: HTMLElement

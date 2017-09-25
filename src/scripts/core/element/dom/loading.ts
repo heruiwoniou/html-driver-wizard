@@ -1,5 +1,5 @@
-import Base from "./base";
-import h from "virtual-dom/h";
+import Base from "./../base";
+import * as h from "virtual-dom/h";
 import { when } from './../utils';
 import { Mounted } from './../hook';
 
