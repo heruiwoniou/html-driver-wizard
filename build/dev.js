@@ -22,7 +22,7 @@ spawn('stylus.cmd', [
   '-w',
   '-c', 'src/style/app.styl',
   '-u', './node_modules/autoprefixer-stylus', '--with', "{ browsers: ['last 10 versions','ie 8', 'ie 9'] }",
-  '-I', './src/style/',
+  '-I', './src/style/**/*',
   '-o', 'dist/style'
 ], {
     stdio: 'inherit'

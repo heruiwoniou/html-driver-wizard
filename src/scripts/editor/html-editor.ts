@@ -1,6 +1,6 @@
 import DomRender from "./../core/helper/dom-render";
 import * as events from 'events'
-import Background from "../core/element/dom/background";
+import DOMContainer from "../core/element/dom/dom-container";
 import Base from "../core/element/base";
 
 export default class HtmlEditor extends events.EventEmitter {
@@ -9,12 +9,12 @@ export default class HtmlEditor extends events.EventEmitter {
     return new HtmlEditor()
   }
   private domRender: DomRender
-  private node: Background
+  private node: DOMContainer
 
   constructor() {
     super()
     this.domRender = new DomRender(document.querySelector('.html'))
-    this.node = new Background()
+    this.node = new DOMContainer()
     this.domRender.create(this.node.render())
 
     this.node.on('onselecthandler', o => this.onSelectNode(o))

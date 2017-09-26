@@ -1,0 +1,32 @@
+.main {
+  min-height: 'calc(100vh - %s)' % $footer_height;
+  box-sizing: border-box;
+  padding-top: $header_height;
+  margin-top: - $header_height;
+}
+
+.main {
+  margin-left: ($header_height / 3);
+  margin-right: ($header_height / 3);
+  display: flex;
+
+  .html {
+    position: relative;
+    width: 50%;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: -1px;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), alpha(#ccc - 50%, 0.2), rgba(0, 0, 0, 0));
+      cursor: ew-resize;
+    }
+  }
+
+  .source {
+    flex-grow: 1;
+  }
+}

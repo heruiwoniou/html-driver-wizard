@@ -4,7 +4,7 @@ import Container from "./container"
 import { BaseDisplay } from "../const";
 
 @relative
-export default class Background extends Container {
+export default class DOMContainer extends Container {
 
   constructor(children?: Array<Base>) {
     super({

@@ -4,9 +4,9 @@ var tslib_1 = require("tslib");
 var position_1 = require("../decorators/position");
 var container_1 = require("./container");
 var const_1 = require("../const");
-var Background = /** @class */ (function (_super) {
-    tslib_1.__extends(Background, _super);
-    function Background(children) {
+var DOMContainer = /** @class */ (function (_super) {
+    tslib_1.__extends(DOMContainer, _super);
+    function DOMContainer(children) {
         var _this = _super.call(this, {
             x: 0,
             y: 0,
@@ -16,9 +16,9 @@ var Background = /** @class */ (function (_super) {
         _this.type = "ts-background";
         return _this;
     }
-    Background = tslib_1.__decorate([
+    DOMContainer = tslib_1.__decorate([
         position_1.relative
-    ], Background);
-    return Background;
+    ], DOMContainer);
+    return DOMContainer;
 }(container_1.default));
-exports.default = Background;
+exports.default = DOMContainer;

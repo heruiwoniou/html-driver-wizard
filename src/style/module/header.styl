@@ -1,0 +1,29 @@
+header {
+  position: relative;
+  height: $header_height;
+  color: white;
+  line-height: $header_height;
+  padding: 0 ($header_height / 3);
+  font-size: 1.5em;
+  font-weight: bold;
+  -webkit-app-region: drag;
+
+  i {
+    font-size: 0.5em;
+    padding: 0 (0.5em / 2);
+    font-weight: normal;
+  }
+
+  a {
+    position: absolute;
+    right: ($header_height / 3);
+    top: 50%;
+    opacity: 0.8;
+    transform: translateY(-50%);
+    text-decoration: none;
+    -webkit-app-region: no-drag;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
