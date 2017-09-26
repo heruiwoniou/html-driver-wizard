@@ -3,7 +3,7 @@
     "module": "commonjs",
     "outDir": "dist/script",
     "target": "es5",
-    "sourceMap": false,
+    "sourceMap": true,
     "importHelpers": true,
     "moduleResolution": "node",
     "lib": [
@@ -17,6 +17,6 @@
     "experimentalDecorators": true
   },
   "include": [
-    "src/scripts/**/*"
+    "src/script/**/*"
   ]
 }

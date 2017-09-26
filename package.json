@@ -2,7 +2,7 @@
   "name": "electron-quick-start",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "main.js",
+  "main": "dist/script/main/index.js",
   "scripts": {
     "start": "electron .",
     "dev": "rimraf dist/* && cd dist && mkdir style && cd style && mkdir fonts && cd .. && cd .. && node build/dev.js"

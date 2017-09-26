@@ -1,0 +1,17 @@
+svg.ts-dom-loading {
+  display: none;
+
+  path, rect {
+    fill: white;
+  }
+}
+
+.ts-dom-chart {
+  svg.ts-dom-loading {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
