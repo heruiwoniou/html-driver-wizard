@@ -21,6 +21,17 @@ var Base = /** @class */ (function (_super) {
             }) : null;
         return _this;
     }
+    Object.defineProperty(Base.prototype, "rootTransform", {
+        get: function () {
+            var parent = this;
+            do {
+                if (parent.isRoot)
+                    return parent.transform;
+            } while ((parent = this.parent));
+        },
+        enumerable: true,
+        configurable: true
+    });
     Base.prototype.push = function () {
         var _this = this;
         var args = [];

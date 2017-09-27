@@ -61,10 +61,10 @@ export default class Container extends Base {
   public render(vproperties: VProperties = {}) {
     vproperties = merge.recursive(true, vproperties, {
       style: {
-        left: this.x + 'px',
-        top: this.y + 'px',
-        width: this.width === BaseDisplay.FULL ? '100%' : this.width + 'px',
-        height: this.height === BaseDisplay.FULL ? '100%' : this.height + 'px',
+        left: this.rootTransform.convertUnit(this.x),
+        top: this.rootTransform.convertUnit(this.y),
+        width: this.width === BaseDisplay.FULL ? '100%' : this.rootTransform.convertUnit(this.width),
+        height: this.height === BaseDisplay.FULL ? '100%' : this.rootTransform.convertUnit(this.height)
       }
     })
     return super.render(vproperties)

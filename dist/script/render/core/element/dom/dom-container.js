@@ -14,8 +14,12 @@ var DOMContainer = /** @class */ (function (_super) {
             height: const_1.BaseDisplay.FULL
         }, children) || this;
         _this.type = "ts-dom-background";
+        _this.isRoot = true;
         return _this;
     }
+    DOMContainer.prototype.setTransform = function (value) {
+        this.transform = value;
+    };
     DOMContainer = tslib_1.__decorate([
         position_1.relative
     ], DOMContainer);

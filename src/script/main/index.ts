@@ -1,6 +1,6 @@
 import * as electron from 'electron'
 import { ipcMain, dialog, BrowserWindow, app } from 'electron'
-import conf from '../conf/index'
+import * as conf from '../conf/index'
 
 const ipc = ipcMain
 const path = require('path')
@@ -8,7 +8,11 @@ const url = require('url')
 let mainWindow
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 1440, height: 768, frame: false })
+  mainWindow = new BrowserWindow({
+    width: conf.view.mainWidth,
+    height: conf.view.mainHeight,
+    frame: false
+  })
   mainWindow.loadURL(url.format({
     pathname: path.join(conf.root, 'index.html'),
     protocol: 'file:',

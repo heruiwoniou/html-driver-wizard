@@ -30,6 +30,7 @@
     "merge": "^1.2.0",
     "psd": "^3.2.0",
     "tslib": "^1.7.1",
-    "virtual-dom": "^2.1.1"
+    "virtual-dom": "^2.1.1",
+    "wind-dom": "0.0.3"
   }
 }

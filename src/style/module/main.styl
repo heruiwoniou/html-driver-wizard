@@ -1,32 +1,42 @@
 .main {
-  min-height: 'calc(100vh - %s)' % $footer_height;
+  min-height: 'calc(100vh - %s)' % $mainFooterHeight;
   box-sizing: border-box;
-  padding-top: $header_height;
-  margin-top: - $header_height;
+  padding-top: $mainHeaderHeight;
+  margin-top: - $mainHeaderHeight;
 }
 
 .main {
-  margin-left: ($header_height / 3);
-  margin-right: ($header_height / 3);
+  margin-left: ($mainHeaderHeight / 3);
+  margin-right: ($mainHeaderHeight / 3);
   display: flex;
 
-  .html {
+  .split-line {
     position: relative;
-    width: 50%;
+    width: ($mainHeaderHeight / 3);
 
     &:after {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), alpha(#ccc - 50%, 0.2), rgba(0, 0, 0, 0));
       content: '';
       position: absolute;
       top: 0;
       bottom: 0;
-      right: -1px;
       width: 2px;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), alpha(#ccc - 50%, 0.2), rgba(0, 0, 0, 0));
-      cursor: ew-resize;
+      left: 50%;
+      transform: translateX(-50%)
     }
   }
 
-  .source {
-    flex-grow: 1;
+  .html, .source {
+    width: 'calc(50% - %s)' % ($mainHeaderHeight / 6);
+
+    &.resize {
+      &>* {
+        display: none;
+      }
+    }
+  }
+
+  .html {
+    position: relative;
   }
 }

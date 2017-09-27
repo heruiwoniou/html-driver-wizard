@@ -12,8 +12,8 @@ var Loading = /** @class */ (function (_super) {
     Loading.prototype.render = function () {
         return h('svg.ts-dom-loading', {
             style: {
-                width: '24px',
-                height: '30px'
+                width: this.rootTransform.convertUnit(24),
+                height: this.rootTransform.convertUnit(30)
             },
             mounted: hook_1.Mounted(function (node) {
                 node.parentNode.innerHTML = node.outerHTML;

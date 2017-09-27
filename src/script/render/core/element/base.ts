@@ -5,6 +5,7 @@ import { absolute } from './decorators/position';
 import * as merge from 'merge'
 import { Mounted } from './hook'
 import * as events from 'events'
+import Transform from '../helper/transform';
 
 @absolute
 export default class Base extends events.EventEmitter {
@@ -23,6 +24,10 @@ export default class Base extends events.EventEmitter {
 
   public el: HTMLElement
 
+  public isRoot: boolean
+
+  public transform: Transform
+
   public constructor(type: string = 'base', children?: Base[]) {
     super()
     this._uid = Math.round(Math.random() * 1e5)
@@ -33,7 +38,13 @@ export default class Base extends events.EventEmitter {
       }) : null
   }
 
-
+  public get rootTransform() {
+    let parent: Base = this
+    do {
+      if (parent.isRoot) return parent.transform
+    }
+    while ((parent = this.parent))
+  }
 
   public push(...args) {
     args.forEach(child => child.parent = this)

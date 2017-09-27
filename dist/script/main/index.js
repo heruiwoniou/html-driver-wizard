@@ -1,15 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
-var index_1 = require("../conf/index");
+var conf = require("../conf/index");
 var ipc = electron_1.ipcMain;
 var path = require('path');
 var url = require('url');
 var mainWindow;
 function createWindow() {
-    mainWindow = new electron_1.BrowserWindow({ width: 1440, height: 768, frame: false });
+    mainWindow = new electron_1.BrowserWindow({
+        width: conf.view.mainWidth,
+        height: conf.view.mainHeight,
+        frame: false
+    });
     mainWindow.loadURL(url.format({
-        pathname: path.join(index_1.default.root, 'index.html'),
+        pathname: path.join(conf.root, 'index.html'),
         protocol: 'file:',
         slashes: true,
         movable: true

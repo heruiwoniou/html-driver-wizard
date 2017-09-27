@@ -48,10 +48,10 @@ var PSDBase = /** @class */ (function (_super) {
         if (vproperties === void 0) { vproperties = {}; }
         vproperties = merge.recursive(true, vproperties, {
             style: {
-                left: this.x + 'px',
-                top: this.y + 'px',
-                width: this.width === const_1.BaseDisplay.FULL ? '100%' : this.width + 'px',
-                height: this.height === const_1.BaseDisplay.FULL ? '100%' : this.height + 'px',
+                left: this.rootTransform.convertUnit(this.x),
+                top: this.rootTransform.convertUnit(this.y),
+                width: this.width === const_1.BaseDisplay.FULL ? '100%' : this.rootTransform.convertUnit(this.width),
+                height: this.height === const_1.BaseDisplay.FULL ? '100%' : this.rootTransform.convertUnit(this.height)
             }
         });
         return _super.prototype.render.call(this, vproperties);

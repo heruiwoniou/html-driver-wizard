@@ -18,12 +18,22 @@ spawn('tsc', ['--watch'], {
   stdio: 'inherit'
 })
 
-spawn('stylus.cmd', [
-  '-w',
-  '-c', 'src/style/app.styl',
-  '-u', './node_modules/autoprefixer-stylus', '--with', "{ browsers: ['last 10 versions','ie 8', 'ie 9'] }",
-  '-I', './src/style/**/*',
-  '-o', 'dist/style'
-], {
-    stdio: 'inherit'
+const vars = require('./../src/style/vars')
+vars.run().then(function () {
+  spawn('stylus.cmd', [
+    '-w',
+    '-c', 'src/style/app.styl',
+    '-u', './node_modules/autoprefixer-stylus', '--with', "{ browsers: ['last 10 versions','ie 8', 'ie 9'] }",
+    '-I', './src/style/**/*',
+    '-o', 'dist/style'
+  ], {
+      stdio: 'inherit'
+    })
+})
+
+fs.watchFile('src/script/conf/index.js', function (curr, prev) {
+  setTimeout(function () {
+    vars.runSync()
   })
+})
+

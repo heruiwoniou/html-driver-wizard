@@ -4,7 +4,7 @@ var tslib_1 = require("tslib");
 var position_1 = require("../decorators/position");
 var psd_base_1 = require("./psd-base");
 var const_1 = require("../const");
-var index_1 = require("../../../../conf/index");
+var conf = require("../../../../conf/index");
 var hook_1 = require("../hook");
 var h = require("virtual-dom/h");
 var merge = require("merge");
@@ -23,22 +23,32 @@ var Tree = /** @class */ (function (_super) {
         _this.type = "ts-psd-tree";
         _this.tree = tree;
         _this.psd = psd;
+        _this.isRoot = true;
+        _this.mounted = false;
         return _this;
     }
+    Tree.prototype.setTransform = function (value) {
+        this.transform = value;
+    };
     Tree.prototype.onMounted = function (node) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var filename, img;
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!!this.mounted) return [3 /*break*/, 2];
                         _super.prototype.onMounted.call(this, node);
-                        filename = path.join(index_1.default.root, 'assets', 'main.png');
+                        filename = path.join(conf.root, 'assets', 'main.png');
                         return [4 /*yield*/, this.psd.image.saveAsPng(filename)];
                     case 1:
                         _a.sent();
-                        img = new Image();
-                        img.src = filename;
-                        this.el.querySelector('div.ts-psd-background').appendChild(img);
+                        _a.label = 2;
+                    case 2:
+                        img = this.el.querySelector('div.ts-psd-background img');
+                        img.src = path.join('assets', 'main.png');
+                        img.width = this.rootTransform.convert(this.width);
+                        img.height = this.rootTransform.convert(this.height);
+                        img.style.display = 'initial';
                         return [2 /*return*/];
                 }
             });
@@ -50,10 +60,10 @@ var Tree = /** @class */ (function (_super) {
         var self = this;
         vproperties = merge.recursive(vproperties, {
             style: {
-                left: this.x + 'px',
-                top: this.y + 'px',
-                width: this.width === const_1.BaseDisplay.FULL ? '100%' : this.width + 'px',
-                height: this.height === const_1.BaseDisplay.FULL ? '100%' : this.height + 'px',
+                left: this.rootTransform.convertUnit(this.x),
+                top: this.rootTransform.convertUnit(this.y),
+                width: this.width === const_1.BaseDisplay.FULL ? '100%' : this.rootTransform.convertUnit(this.width),
+                height: this.height === const_1.BaseDisplay.FULL ? '100%' : this.rootTransform.convertUnit(this.height),
                 position: this.position
             },
             onclick: function (e) { return _this.onselect(e); }
@@ -61,7 +71,7 @@ var Tree = /** @class */ (function (_super) {
         vproperties.mounted = hook_1.Mounted(function (node) {
             _this.onMounted(node);
         });
-        return h(this.type ? this.tagName + "." + this.type : "" + this.tagName, vproperties, [h('div.ts-psd-background')].concat(this.map(function (child) { return child.render(); })));
+        return h(this.type ? this.tagName + "." + this.type : "" + this.tagName, vproperties, [h('div.ts-psd-background', null, h('img'))].concat(this.map(function (child) { return child.render(); })));
     };
     Tree = tslib_1.__decorate([
         position_1.relative

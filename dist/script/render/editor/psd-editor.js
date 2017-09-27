@@ -3,17 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var dom_render_1 = require("../core/helper/dom-render");
 var electron_1 = require("electron");
-var PSD = require("psd");
-var events = require("events");
-var h = require("virtual-dom/h");
 var tree_1 = require("../core/element/psd/tree");
+var editor_1 = require("./editor");
+var transform_1 = require("../core/helper/transform");
+var conf = require("../../conf/index");
+var PSD = require("psd");
+var h = require("virtual-dom/h");
 var PSDEditor = /** @class */ (function (_super) {
     tslib_1.__extends(PSDEditor, _super);
     function PSDEditor() {
         var _this = _super.call(this) || this;
-        _this.domRender = new dom_render_1.default(document.querySelector('.source'));
+        _this.el = document.querySelector('.source');
+        _this.domRender = new dom_render_1.default(_this.el);
+        _this.transform = new transform_1.default(conf.view.mainWidth, _this.el.offsetWidth, 'px');
         _this.domRender.create(_this.render());
-        // this.node.on('onselecthandler', o => this.onSelectNode(o))
         electron_1.ipcRenderer.on('selected-file', function (event, files) {
             if (files.length > 0) {
                 _this.analysis(files.pop());
@@ -35,16 +38,20 @@ var PSDEditor = /** @class */ (function (_super) {
                     case 1:
                         _a.psd = _b.sent();
                         this.node = new tree_1.default(this.psd);
+                        this.transform.setOrignal(this.psd.tree().width);
+                        this.node.setTransform(this.transform);
                         this.domRender.update(this.render());
                         return [2 /*return*/];
                 }
             });
         });
     };
-    PSDEditor.prototype.onSelectNode = function (o) {
-    };
     PSDEditor.prototype.onSelectFile = function () {
         electron_1.ipcRenderer.send('open-file-dialog');
+    };
+    PSDEditor.prototype.resize = function () {
+        _super.prototype.resize.call(this);
+        this.domRender.update(this.render());
     };
     PSDEditor.prototype.render = function () {
         var _this = this;
@@ -67,6 +74,6 @@ var PSDEditor = /** @class */ (function (_super) {
         }
     };
     return PSDEditor;
-}(events.EventEmitter));
+}(editor_1.default));
 exports.default = PSDEditor;
 //# sourceMappingURL=psd-editor.js.map

@@ -1,28 +1,33 @@
 import DomRender from "../core/helper/dom-render";
 import { ipcRenderer } from 'electron';
-import conf from '../../conf/index';
+import Tree from "../core/element/psd/tree";
+import Editor from "./editor";
+import Transform from "../core/helper/transform";
 
+import * as conf from '../../conf/index';
 import * as  path from 'path';
 import * as PSD from 'psd';
 import * as events from 'events';
 import * as h from 'virtual-dom/h';
-import Tree from "../core/element/psd/tree";
 
-export default class PSDEditor extends events.EventEmitter {
+export default class PSDEditor extends Editor {
   public static initialize(): PSDEditor {
     return new PSDEditor()
   }
 
-  private domRender: DomRender
-  private node: any
   private psd: any
+
+  protected node: Tree
 
   constructor() {
     super()
 
-    this.domRender = new DomRender(document.querySelector('.source'))
+
+    this.el = document.querySelector('.source')
+    this.domRender = new DomRender(this.el)
+    this.transform = new Transform(conf.view.mainWidth, this.el.offsetWidth, 'px')
+
     this.domRender.create(this.render())
-    // this.node.on('onselecthandler', o => this.onSelectNode(o))
 
     ipcRenderer.on('selected-file', (event, files) => {
       if (files.length > 0) {
@@ -34,14 +39,19 @@ export default class PSDEditor extends events.EventEmitter {
   async analysis(filename) {
     this.psd = await PSD.open(filename)
     this.node = new Tree(this.psd)
+    this.transform.setOrignal(this.psd.tree().width)
+    this.node.setTransform(this.transform)
     this.domRender.update(this.render())
   }
 
-  onSelectNode(o: any) {
-  }
 
   onSelectFile() {
     ipcRenderer.send('open-file-dialog')
+  }
+
+  resize() {
+    super.resize()
+    this.domRender.update(this.render())
   }
 
   render() {

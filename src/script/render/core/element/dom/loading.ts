@@ -11,8 +11,8 @@ export default class Loading extends Base {
   render() {
     return h('svg.ts-dom-loading', {
       style: {
-        width: '24px',
-        height: '30px'
+        width: this.rootTransform.convertUnit(24),
+        height: this.rootTransform.convertUnit(30)
       },
       mounted: Mounted(node => {
         node.parentNode.innerHTML = node.outerHTML
