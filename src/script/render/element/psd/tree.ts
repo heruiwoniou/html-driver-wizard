@@ -2,7 +2,7 @@ import Base from "./../base";
 import { relative } from "../decorators/position";
 import PSDBase from "./psd-base"
 import { BaseDisplay } from "../const";
-import * as conf from '../../../../conf/index';
+import * as conf from '../../../conf/index';
 import { Mounted } from "../hook";
 
 

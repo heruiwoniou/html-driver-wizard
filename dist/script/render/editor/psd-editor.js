@@ -1,19 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
-var dom_render_1 = require("../core/helper/dom-render");
+var dom_render_1 = require("../helper/dom-render");
 var electron_1 = require("electron");
-var tree_1 = require("../core/element/psd/tree");
+var tree_1 = require("../element/psd/tree");
 var editor_1 = require("./editor");
-var transform_1 = require("../core/helper/transform");
+var transform_1 = require("../helper/transform");
 var conf = require("../../conf/index");
 var PSD = require("psd");
 var h = require("virtual-dom/h");
+/**
+ * PSD呈现及编辑框
+ *
+ * @export
+ * @class PSDEditor
+ * @extends {Editor}
+ */
 var PSDEditor = /** @class */ (function (_super) {
     tslib_1.__extends(PSDEditor, _super);
     function PSDEditor() {
         var _this = _super.call(this) || this;
-        _this.el = document.querySelector('.source');
+        _this.el = document.querySelector('.psd');
         _this.domRender = new dom_render_1.default(_this.el);
         _this.transform = new transform_1.default(conf.view.mainWidth, _this.el.offsetWidth, 'px');
         _this.domRender.create(_this.render());

@@ -6,7 +6,8 @@ var conf = {
     mainHeight: 900,
 
     mainHeaderHeight: 40,
-    mainFooterHeight: 25
+    mainFooterHeight: 25,
+    toolBarHeight: 30
   }
 }
 

@@ -1,0 +1,29 @@
+.bar-container {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  margin = 3px;
+
+  a {
+    height: $toolBarHeight - (1px + 2 * margin);
+    width: @height;
+    margin: margin 0 0 margin;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: fontColor;
+    text-decoration: none;
+    text-align: center;
+    line-height: @height - 2px;
+
+    &:before {
+      vertical-align: middle;
+    }
+
+    &:active,&:hover {
+      background: borderColor;
+      border: 1px solid ideColor + 10%;
+    }
+  }
+}

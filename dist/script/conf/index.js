@@ -4,7 +4,8 @@ var conf = {
         mainWidth: 1600,
         mainHeight: 900,
         mainHeaderHeight: 40,
-        mainFooterHeight: 25
+        mainFooterHeight: 25,
+        toolBarHeight: 30
     }
 };
 module.exports = conf;

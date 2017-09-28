@@ -1,12 +1,19 @@
-import DomRender from "./../core/helper/dom-render";
-import DOMContainer from "../core/element/dom/dom-container";
-import Base from "../core/element/base";
-import Transform from "../core/helper/transform";
+import DomRender from "./../helper/dom-render";
+import DOMContainer from "../element/dom/dom-container";
+import Base from "../element/base";
+import Transform from "../helper/transform";
 import Editor from "./editor";
 
 import * as events from 'events'
 import * as conf from './../../conf/index';
 
+/**
+ * HTML编辑框
+ * 
+ * @export
+ * @class HtmlEditor
+ * @extends {Editor}
+ */
 export default class HtmlEditor extends Editor {
 
   public static initialize(): HtmlEditor {

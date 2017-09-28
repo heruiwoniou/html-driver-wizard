@@ -6,9 +6,10 @@
 }
 
 .main {
-  margin-left: ($mainHeaderHeight / 3);
-  margin-right: ($mainHeaderHeight / 3);
+  // margin-left: ($mainHeaderHeight / 3);
+  // margin-right: ($mainHeaderHeight / 3);
   display: flex;
+  flex-direction: column;
 
   .split-line {
     position: relative;
@@ -22,21 +23,39 @@
       bottom: 0;
       width: 2px;
       left: 50%;
-      transform: translateX(-50%)
+      transform: translateX(-50%);
     }
   }
 
-  .html, .source {
+  .toolbar {
+    box-sizing: border-box;
+    height: $toolBarHeight;
+    background: ideColor;
+    border-bottom: 1px solid borderColor;
+    display: flex;
+    [class*="toolbar"]{
+      width: 'calc(50% - %s)' % ($mainHeaderHeight / 6);
+      &.psd-toolbar{
+        margin-left: ($mainHeaderHeight / 3)
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    // margin-left: ($mainHeaderHeight / 3);
+    // margin-right: ($mainHeaderHeight / 3);
+  }
+
+  .html, .psd {
     width: 'calc(50% - %s)' % ($mainHeaderHeight / 6);
+    position: relative;
 
     &.resize {
       &>* {
         display: none;
       }
     }
-  }
-
-  .html {
-    position: relative;
   }
 }

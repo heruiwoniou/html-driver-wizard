@@ -7,6 +7,13 @@ import { Mounted } from './hook'
 import * as events from 'events'
 import Transform from '../helper/transform';
 
+/**
+ * 页面可选框的基本类
+ * 
+ * @export
+ * @class Base
+ * @extends {events.EventEmitter}
+ */
 @absolute
 export default class Base extends events.EventEmitter {
 

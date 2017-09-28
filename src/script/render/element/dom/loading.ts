@@ -3,6 +3,13 @@ import * as h from "virtual-dom/h";
 import { when } from './../utils';
 import { Mounted } from './../hook';
 
+/**
+ * DOM 内的 chart框加载状态图标
+ * 
+ * @export
+ * @class Loading
+ * @extends {Base}
+ */
 export default class Loading extends Base {
   constructor() {
     super('loading')

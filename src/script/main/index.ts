@@ -30,7 +30,9 @@ function createWindow() {
   ipc.on('win-close', function () {
     mainWindow.close();
   })
-
+  ipc.on('win-full', function () {
+    mainWindow.setFullScreen(true)
+  })
   ipc.on('open-file-dialog', function (event) {
     dialog.showOpenDialog({
       filters: [

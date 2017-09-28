@@ -1,11 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
-var dom_render_1 = require("./../core/helper/dom-render");
-var dom_container_1 = require("../core/element/dom/dom-container");
-var transform_1 = require("../core/helper/transform");
+var dom_render_1 = require("./../helper/dom-render");
+var dom_container_1 = require("../element/dom/dom-container");
+var transform_1 = require("../helper/transform");
 var editor_1 = require("./editor");
 var conf = require("./../../conf/index");
+/**
+ * HTML编辑框
+ *
+ * @export
+ * @class HtmlEditor
+ * @extends {Editor}
+ */
 var HtmlEditor = /** @class */ (function (_super) {
     tslib_1.__extends(HtmlEditor, _super);
     function HtmlEditor() {

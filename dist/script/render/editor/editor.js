@@ -2,6 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var events = require("events");
+/**
+ * 基本的编辑框类
+ *
+ * @export
+ * @class Editor
+ * @extends {events.EventEmitter}
+ */
 var Editor = /** @class */ (function (_super) {
     tslib_1.__extends(Editor, _super);
     function Editor() {

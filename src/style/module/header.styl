@@ -7,7 +7,10 @@ header {
   font-size: 1.5em;
   font-weight: bold;
   -webkit-app-region: drag;
-
+  background: ideColor;
+  box-sizing: border-box;
+  border-bottom: 1px solid borderColor;
+  
   i {
     font-size: 0.5em;
     padding: 0 0.5em / 2;
@@ -15,8 +18,11 @@ header {
   }
 
   .window-controler {
-    float: right;
+    position: absolute;
     text-align: right;
+    top: 0;
+    right: ($mainHeaderHeight / 3);
+
     a {
       display: inline-block;
       height: 18px;
@@ -25,13 +31,16 @@ header {
       opacity: 0.8;
       text-decoration: none;
       -webkit-app-region: no-drag;
-      &:after{
+
+      &:before {
         vertical-align: middle;
       }
-      &.fa-close:after{
+
+      &.fa-close:before {
         position: relative;
-        top: -1px;
+        top: -3px;
       }
+
       &:hover {
         opacity: 1;
       }

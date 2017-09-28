@@ -4,9 +4,11 @@ var tslib_1 = require("tslib");
 var events = require("events");
 var Transform = /** @class */ (function (_super) {
     tslib_1.__extends(Transform, _super);
-    function Transform() {
+    function Transform(original, map, unit) {
         var _this = _super.call(this) || this;
-        _this.unit = 'px';
+        _this.original = original;
+        _this.map = map;
+        _this.unit = unit ? unit : 'px';
         return _this;
     }
     Transform.prototype.setOrignal = function (orignialNumber) {
@@ -25,6 +27,6 @@ var Transform = /** @class */ (function (_super) {
         return this.convert(realNumber) + this.unit;
     };
     return Transform;
-}(events));
+}(events.EventEmitter));
 exports.default = Transform;
 //# sourceMappingURL=transform.js.map

@@ -4,6 +4,13 @@ import Container from "./container"
 import { BaseDisplay } from "../const";
 import Transform from "../../helper/transform";
 
+/**
+ * DOM 最外层框体 
+ * 
+ * @export
+ * @class DOMContainer
+ * @extends {Container}
+ */
 @relative
 export default class DOMContainer extends Container {
 

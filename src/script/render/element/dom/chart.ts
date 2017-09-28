@@ -2,6 +2,13 @@ import Base from "./../base";
 import Loading from "./loading";
 import { relative } from "../decorators/position";
 
+/**
+ * DOM 当中的 CHART 外包框
+ * 
+ * @export
+ * @class Chart
+ * @extends {Base}
+ */
 @relative
 export default class Chart extends Base {
 

@@ -1,10 +1,17 @@
-import DomRender from "../core/helper/dom-render";
-import DOMContainer from "../core/element/dom/dom-container";
-import Transform from "../core/helper/transform";
+import DomRender from "../helper/dom-render";
+import DOMContainer from "../element/dom/dom-container";
+import Transform from "../helper/transform";
 
 import * as events from 'events';
-import Base from "../core/element/base";
+import Base from "../element/base";
 
+/**
+ * 基本的编辑框类
+ * 
+ * @export
+ * @class Editor
+ * @extends {events.EventEmitter}
+ */
 export default class Editor extends events.EventEmitter {
   protected domRender: DomRender
   protected node: Base

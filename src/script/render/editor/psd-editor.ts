@@ -1,8 +1,8 @@
-import DomRender from "../core/helper/dom-render";
+import DomRender from "../helper/dom-render";
 import { ipcRenderer } from 'electron';
-import Tree from "../core/element/psd/tree";
+import Tree from "../element/psd/tree";
 import Editor from "./editor";
-import Transform from "../core/helper/transform";
+import Transform from "../helper/transform";
 
 import * as conf from '../../conf/index';
 import * as  path from 'path';
@@ -10,6 +10,13 @@ import * as PSD from 'psd';
 import * as events from 'events';
 import * as h from 'virtual-dom/h';
 
+/**
+ * PSD呈现及编辑框
+ * 
+ * @export
+ * @class PSDEditor
+ * @extends {Editor}
+ */
 export default class PSDEditor extends Editor {
   public static initialize(): PSDEditor {
     return new PSDEditor()
@@ -23,7 +30,7 @@ export default class PSDEditor extends Editor {
     super()
 
 
-    this.el = document.querySelector('.source')
+    this.el = document.querySelector('.psd')
     this.domRender = new DomRender(this.el)
     this.transform = new Transform(conf.view.mainWidth, this.el.offsetWidth, 'px')
 

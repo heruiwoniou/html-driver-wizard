@@ -11,6 +11,13 @@ interface IContainerparameter {
   onselect?: Function
 }
 
+/**
+ * DOM 基本的框体
+ * 
+ * @export
+ * @class Container
+ * @extends {Base}
+ */
 export default class Container extends Base {
 
   protected _x: number
