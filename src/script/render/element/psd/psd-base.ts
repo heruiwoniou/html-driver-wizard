@@ -10,13 +10,22 @@ export default class PSDBase extends Base {
   public width: number
   public height: number
 
-  constructor(obj: { left: number, top: number, width: number, height: number }, children?: Array<Base>) {
-    super('ts-psd-base', children)
+  constructor(obj: { left: number, top: number, width: number, height: number }) {
+    super('ts-psd-base')
 
     this._x = obj.left
     this._y = obj.top
     this.width = obj.width
     this.height = obj.height
+
+    this.on('mousemove', (instance, ...arg) => instance !== instance ? this.mousemove(...arg) : null)
+    this.on('mouseleave', (instance, ...arg) => instance !== instance ? this.mouseleave(...arg) : null)
+  }
+
+  mousemove() {
+  }
+
+  mouseleave() {
   }
 
   public get staticX(): number {

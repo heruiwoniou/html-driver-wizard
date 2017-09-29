@@ -1,4 +1,4 @@
-import { when } from './utils';
+import { when } from './../utils';
 export function Mounted(value?: Function): void {
   if (!(this instanceof Mounted)) {
     return new Mounted(value)

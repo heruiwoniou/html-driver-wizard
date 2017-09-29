@@ -1,4 +1,4 @@
-import { push, splice, forEach, slice } from './utils';
+import { push, splice, forEach, slice } from './../utils';
 import { VProperties } from 'virtual-dom';
 import * as h from 'virtual-dom/h'
 import { absolute } from './decorators/position';
@@ -39,18 +39,22 @@ export default class Base extends events.EventEmitter {
     super()
     this._uid = Math.round(Math.random() * 1e5)
     this.type = type
+    this.isRoot = false
     children ?
       children.forEach(child => {
         this.push(child)
       }) : null
   }
 
-  public get rootTransform() {
+  public get rootTransform(): Transform {
+    return this.root.transform
+  }
+
+  public get root(): any {
     let parent: Base = this
     do {
-      if (parent.isRoot) return parent.transform
-    }
-    while ((parent = this.parent))
+      if (parent.isRoot) return parent
+    } while ((parent = parent.parent))
   }
 
   public push(...args) {

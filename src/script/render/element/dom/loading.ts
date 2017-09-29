@@ -1,6 +1,6 @@
 import Base from "./../base";
 import * as h from "virtual-dom/h";
-import { when } from './../utils';
+import { when } from './../../utils';
 import { Mounted } from './../hook';
 
 /**

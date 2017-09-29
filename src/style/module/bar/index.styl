@@ -4,6 +4,20 @@
   font-size: 0;
   margin = 3px;
 
+  li {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  span {
+    height: $toolBarHeight - (1px + 4 * margin);
+    width: 1px;
+    margin: 2 * margin margin;
+    background: borderColor;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   a {
     height: $toolBarHeight - (1px + 2 * margin);
     width: @height;
@@ -21,7 +35,7 @@
       vertical-align: middle;
     }
 
-    &:active,&:hover {
+    &:active, &:hover {
       background: borderColor;
       border: 1px solid ideColor + 10%;
     }

@@ -32,4 +32,8 @@ export default class Transform extends events.EventEmitter {
   convertUnit(realNumber: number): string {
     return this.convert(realNumber) + this.unit
   }
+
+  reverseConvert(thisNumber: number): number {
+    return thisNumber * this.original / this.map
+  }
 }

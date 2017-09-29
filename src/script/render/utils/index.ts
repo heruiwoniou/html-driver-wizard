@@ -54,6 +54,6 @@ export function when(condition: Function, setting: { count?: number, delay?: num
   return new Promise((resolve, reject) => {
     privateSetting.resolve = resolve
     privateSetting.reject = reject
-    privateSetting.time = loop()
+    loop()
   })
 }

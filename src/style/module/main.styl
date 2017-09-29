@@ -1,15 +1,14 @@
 .main {
-  min-height: 'calc(100vh - %s)' % $mainFooterHeight;
+  height: 'calc(100vh - %s)' % $mainFooterHeight;
   box-sizing: border-box;
   padding-top: $mainHeaderHeight;
   margin-top: - $mainHeaderHeight;
-}
-
-.main {
-  // margin-left: ($mainHeaderHeight / 3);
-  // margin-right: ($mainHeaderHeight / 3);
+  background: backgroundColor;
+  margin-left: 2px;
+  margin-right: 2px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   .split-line {
     position: relative;
@@ -33,10 +32,12 @@
     background: ideColor;
     border-bottom: 1px solid borderColor;
     display: flex;
-    [class*="toolbar"]{
+
+    [class*='toolbar'] {
       width: 'calc(50% - %s)' % ($mainHeaderHeight / 6);
-      &.psd-toolbar{
-        margin-left: ($mainHeaderHeight / 3)
+
+      &.psd-toolbar {
+        margin-left: ($mainHeaderHeight / 3);
       }
     }
   }

@@ -1,3 +1,4 @@
 node_modules
 dist/script
 dist/style
+npm-debugger.log*

@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
 import HtmlEditor from './editor/html-editor'
 import PSDEditor from './editor/psd-editor';
-import Bar from './bar/index';
+import Bar from './bar';
 
 import { addClass, removeClass, setStyle } from 'wind-dom';
 
@@ -23,17 +23,16 @@ let graphic = {
     htmlEditor = HtmlEditor.initialize()
     psdEditor = PSDEditor.initialize()
 
-    htmlbar = new Bar(
-      [
-        { name: '清空', cls: 'fa fa-trash-o', cmd: 'html-remove' }
-      ]
-    ).mount(document.querySelector('.html-toolbar'))
+    htmlbar = new Bar([{ name: '清空', cls: 'fa fa-trash-o', cmd: 'html-remove' }, '|'])
+      .mount(document.querySelector('.html-toolbar'))
 
-    psdbar = new Bar(
-      [
-        { name: '清空', cls: 'fa fa-trash-o', cmd: 'psd-remove' }
-      ]
-    ).mount(document.querySelector('.psd-toolbar'))
+    psdbar = new Bar([
+      { name: '清除PSD文件', cls: 'fa fa-trash-o', cmd: 'psd-remove' },
+      { name: '清空选择', cls: 'fa fa-times-rectangle-o', cmd: 'clear-all-layers' },
+      '|',
+      { name: '切片导出', cls: 'fa fa-image', cmd: 'export-layer-images' }
+    ])
+      .mount(document.querySelector('.psd-toolbar'))
 
   },
   registerEvent() {

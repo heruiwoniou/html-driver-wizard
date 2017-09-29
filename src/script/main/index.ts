@@ -1,8 +1,8 @@
 import * as electron from 'electron'
-import { ipcMain, dialog, BrowserWindow, app } from 'electron'
-import * as conf from '../conf/index'
+import { BrowserWindow, app } from 'electron'
+import { bindIpcMain } from './ipc';
+import * as conf from '../conf'
 
-const ipc = ipcMain
 const path = require('path')
 const url = require('url')
 let mainWindow
@@ -26,23 +26,7 @@ function createWindow() {
     mainWindow = null
   })
 
-
-  ipc.on('win-close', function () {
-    mainWindow.close();
-  })
-  ipc.on('win-full', function () {
-    mainWindow.setFullScreen(true)
-  })
-  ipc.on('open-file-dialog', function (event) {
-    dialog.showOpenDialog({
-      filters: [
-        { name: 'PSD', extensions: ['psd'] }
-      ],
-      properties: ['openFile', 'openFile']
-    }, function (file) {
-      if (file) event.sender.send('selected-file', file)
-    })
-  })
+  bindIpcMain(mainWindow)
 }
 
 

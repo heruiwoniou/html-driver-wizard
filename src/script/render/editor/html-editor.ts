@@ -5,7 +5,7 @@ import Transform from "../helper/transform";
 import Editor from "./editor";
 
 import * as events from 'events'
-import * as conf from './../../conf/index';
+import * as conf from './../../conf';
 
 /**
  * HTML编辑框

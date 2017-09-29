@@ -8,12 +8,12 @@ interface IButton {
 }
 
 export default class Bar extends events.EventEmitter {
-  private buttons: IButton[]
+  private buttons: (IButton | string)[]
   private el: any;
   private mountTarget: any;
   private mounted: boolean
   private domRender: DomRender
-  constructor(buttons: IButton[]) {
+  constructor(buttons: (IButton | string)[]) {
     super()
     this.buttons = buttons
   }
@@ -24,7 +24,7 @@ export default class Bar extends events.EventEmitter {
     return this;
   }
 
-  setState(buttons: IButton[]) {
+  setState(buttons: (IButton | string)[]) {
 
   }
 
@@ -40,9 +40,17 @@ export default class Bar extends events.EventEmitter {
         })
       }>
         {
-          this.buttons.map(btn => {
+          this.buttons.map((btn: any) => {
             return (
-              <a href="javascript:;" title={btn.name} className={btn.cls} onclick={(e) => this.emit('click', e, btn.cmd)}></a>
+              <li>
+                {
+                  (typeof btn === 'string') ? (
+                    <span></span>
+                  ) : (
+                      <a href="javascript:;" title={btn.name} className={btn.cls} onclick={(e) => this.emit('click', e, btn.cmd)}></a>
+                    )
+                }
+              </li>
             )
           })
         }

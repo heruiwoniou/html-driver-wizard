@@ -1,3 +1,15 @@
 .ts-psd-tree {
+  position: relative;
   background-size: 100% auto;
+  overflow: hidden;
+
+  .ts-psd-background {
+    position: absolute;
+    z-index: 0;
+  }
+
+  .ts-psd-children {
+    position: absolute;
+    z-index: 1;
+  }
 }

@@ -4,7 +4,7 @@ import Tree from "../element/psd/tree";
 import Editor from "./editor";
 import Transform from "../helper/transform";
 
-import * as conf from '../../conf/index';
+import * as conf from '../../conf';
 import * as  path from 'path';
 import * as PSD from 'psd';
 import * as events from 'events';
@@ -45,15 +45,23 @@ export default class PSDEditor extends Editor {
   }
 
   psdRemove(): any {
+    if (this.node) this.node.destroy()
     this.node = null;
-    this.domRender.update(this.render())
+    this.domRender.create(this.render())
+  }
+
+  clearAllLayers() {
+    if (this.node) this.node.clearAllLayers()
+  }
+
+  exportLayerImages() {
+    if (this.node) this.node.exportLayerImages()
   }
 
   async analysis(filename) {
     this.psd = await PSD.open(filename)
-    this.node = new Tree(this.psd)
     this.transform.setOrignal(this.psd.tree().width)
-    this.node.setTransform(this.transform)
+    this.node = new Tree(this.psd, this.transform)
     this.domRender.update(this.render())
   }
 
