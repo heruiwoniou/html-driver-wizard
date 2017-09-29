@@ -40,6 +40,18 @@ let graphic = {
     htmlbar.on('click', (e, ...args) => htmlEditor.invoke(...args))
     psdbar.on('click', (e, ...args) => psdEditor.invoke(...args))
 
+    window.addEventListener('keydown', (e) => {
+      if (!psdEditor.spacePress) {
+        psdEditor.spacePress = true
+      }
+    })
+
+    window.addEventListener('keydown', (e) => {
+      if (psdEditor.spacePress) {
+        psdEditor.spacePress = false
+      }
+    })
+
     document.querySelector('header a.fa-close').addEventListener('click', function () {
       ipcRenderer.sendSync('win-close')
     })

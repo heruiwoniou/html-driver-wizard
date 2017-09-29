@@ -3,6 +3,7 @@ import { ipcRenderer } from 'electron';
 import Tree from "../element/psd/tree";
 import Editor from "./editor";
 import Transform from "../helper/transform";
+import { draggable } from '../utils';
 
 import * as conf from '../../conf';
 import * as  path from 'path';
@@ -26,6 +27,8 @@ export default class PSDEditor extends Editor {
 
   protected node: Tree
 
+  spacePress: false
+
   constructor() {
     super()
 
@@ -42,6 +45,25 @@ export default class PSDEditor extends Editor {
       }
     })
 
+    this.initDrag()
+  }
+
+  initDrag() {
+    let ox, oy, tx, ty
+    draggable(this.el, {
+      start: (e) => {
+        if (this.spacePress && this.node) {
+          ox = e.clientX;
+          oy = e.clientY;
+        }
+      },
+      drag() {
+        if (this.spacePress && this.node) {
+
+        }
+      },
+      end() { }
+    })
   }
 
   psdRemove(): any {

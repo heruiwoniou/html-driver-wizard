@@ -1,6 +1,7 @@
 import * as electron from 'electron'
 import { BrowserWindow, app } from 'electron'
 import { bindIpcMain } from './ipc';
+import { keyRegister } from './keyshortcuts'
 import * as conf from '../conf'
 
 const path = require('path')
@@ -29,9 +30,9 @@ function createWindow() {
   bindIpcMain(mainWindow)
 }
 
+keyRegister()
 
 app.on('ready', createWindow)
-
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit()
