@@ -41,6 +41,12 @@ export default class PSDEditor extends Editor {
         this.analysis(files.pop())
       }
     })
+
+  }
+
+  psdRemove(): any {
+    this.node = null;
+    this.domRender.update(this.render())
   }
 
   async analysis(filename) {

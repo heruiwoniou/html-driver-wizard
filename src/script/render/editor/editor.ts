@@ -29,4 +29,11 @@ export default class Editor extends events.EventEmitter {
   resize() {
     this.transform.setMap(this.el.offsetWidth)
   }
+
+  invoke(cmd, ...args) {
+    cmd = cmd.replace(/-(\S)/g, function (m, m1) { return m1.toLocaleUpperCase(); })
+    if (this[cmd]) {
+      this[cmd](...args)
+    }
+  }
 }

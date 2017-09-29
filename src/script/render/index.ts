@@ -38,7 +38,8 @@ let graphic = {
   },
   registerEvent() {
 
-    psdbar.on('click', (e, ...args) => psdEditor.emit(...args))
+    htmlbar.on('click', (e, ...args) => htmlEditor.invoke(...args))
+    psdbar.on('click', (e, ...args) => psdEditor.invoke(...args))
 
     document.querySelector('header a.fa-close').addEventListener('click', function () {
       ipcRenderer.sendSync('win-close')
