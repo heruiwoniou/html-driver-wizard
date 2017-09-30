@@ -8,9 +8,11 @@ import { addClass, removeClass, setStyle } from 'wind-dom';
 let htmlEditor, psdEditor
 let htmlbar, psdbar
 let html, source
+let main
 let graphic = {
   run() {
 
+    main = document.querySelector('.main')
     html = document.querySelector('.html')
     source = document.querySelector('.psd')
 
@@ -41,14 +43,17 @@ let graphic = {
     psdbar.on('click', (e, ...args) => psdEditor.invoke(...args))
 
     window.addEventListener('keydown', (e) => {
-      if (!psdEditor.spacePress) {
+      if (!psdEditor.spacePress && e.keyCode == 32) {
         psdEditor.spacePress = true
+        addClass(main, 'grab')
       }
     })
 
-    window.addEventListener('keydown', (e) => {
-      if (psdEditor.spacePress) {
+    window.addEventListener('keyup', (e) => {
+      if (psdEditor.spacePress && e.keyCode == 32) {
         psdEditor.spacePress = false
+        removeClass(main, 'grab')
+        removeClass(main, 'grabbing')
       }
     })
 

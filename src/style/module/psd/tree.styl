@@ -2,6 +2,8 @@
   position: relative;
   background-size: 100% auto;
   overflow: hidden;
+  padding: 1px 0 0 1px;
+  transform-origin: left top;
 
   .ts-psd-background {
     position: absolute;
@@ -11,5 +13,17 @@
   .ts-psd-children {
     position: absolute;
     z-index: 1;
+  }
+
+  .grab & {
+    cursor: -webkit-grab;
+
+    .ts-psd-children {
+      display: none;
+    }
+  }
+
+  .grabbing & {
+    cursor: -webkit-grabbing;
   }
 }

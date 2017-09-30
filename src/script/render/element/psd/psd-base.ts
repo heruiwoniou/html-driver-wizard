@@ -5,8 +5,8 @@ import * as merge from 'merge'
 
 export default class PSDBase extends Base {
 
-  protected _x: number
-  protected _y: number
+  _x: number
+  _y: number
   public width: number
   public height: number
 
@@ -18,14 +18,7 @@ export default class PSDBase extends Base {
     this.width = obj.width
     this.height = obj.height
 
-    this.on('mousemove', (instance, ...arg) => instance !== instance ? this.mousemove(...arg) : null)
-    this.on('mouseleave', (instance, ...arg) => instance !== instance ? this.mouseleave(...arg) : null)
-  }
-
-  mousemove() {
-  }
-
-  mouseleave() {
+   
   }
 
   public get staticX(): number {

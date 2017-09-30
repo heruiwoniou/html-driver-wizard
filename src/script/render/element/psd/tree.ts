@@ -96,17 +96,6 @@ export default class Tree extends PSDBase {
     shell.openItem(savePath + '/')
   }
 
-  getOffset(): { left: number, top: number } {
-    let parent: any = this.el
-    let result = { left: parent.offsetLeft, top: parent.offsetLeft }
-    while ((parent = parent.offsetParent)) {
-      result.left += parent.offsetLeft;
-      result.top += parent.offsetTop;
-    }
-    return result;
-  }
-
-
   public async onMounted(node) {
     if (!this.mounted) {
       super.onMounted(node);

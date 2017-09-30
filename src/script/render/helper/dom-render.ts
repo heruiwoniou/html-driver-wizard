@@ -5,7 +5,7 @@ import { VNode } from 'virtual-dom';
 import { forEach } from './../utils';
 
 export default class DomRender {
-  private el: Element
+  public el: Element
   private tree: VNode
   private rootNode: Element
   constructor(dom: Element) {

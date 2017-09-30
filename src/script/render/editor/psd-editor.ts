@@ -3,13 +3,17 @@ import { ipcRenderer } from 'electron';
 import Tree from "../element/psd/tree";
 import Editor from "./editor";
 import Transform from "../helper/transform";
-import { draggable } from '../utils';
+import { draggable, offset } from '../utils';
+import { setStyle, on } from 'wind-dom';
+import toast from './../components/toast';
 
 import * as conf from '../../conf';
 import * as  path from 'path';
 import * as PSD from 'psd';
 import * as events from 'events';
 import * as h from 'virtual-dom/h';
+import * as velocity from 'velocity-animate';
+
 
 /**
  * PSD呈现及编辑框
@@ -19,15 +23,21 @@ import * as h from 'virtual-dom/h';
  * @extends {Editor}
  */
 export default class PSDEditor extends Editor {
+
   public static initialize(): PSDEditor {
     return new PSDEditor()
   }
 
+  // 原始PSD文档
   private psd: any
-
+  // 内容结点
   protected node: Tree
-
+  // 是否按下空格键
   spacePress: false
+  // 视力原始宽度
+  viewWidth: number
+  // 缩放比例
+  scale: number
 
   constructor() {
     super()
@@ -35,7 +45,9 @@ export default class PSDEditor extends Editor {
 
     this.el = document.querySelector('.psd')
     this.domRender = new DomRender(this.el)
-    this.transform = new Transform(conf.view.mainWidth, this.el.offsetWidth, 'px')
+    this.viewWidth = this.el.offsetWidth;
+    this.scale = 1
+    this.transform = new Transform(conf.view.mainWidth, this.viewWidth, 'px')
 
     this.domRender.create(this.render())
 
@@ -45,41 +57,75 @@ export default class PSDEditor extends Editor {
       }
     })
 
-    this.initDrag()
+    this.initGrab()
+    this.initScale()
   }
 
-  initDrag() {
-    let ox, oy, tx, ty
+  // 初始化缩放
+  initScale() {
+    on(this.el, 'mousewheel', ({ clientX, clientY, wheelDelta }) => {
+      if (this.node) {
+        let d = wheelDelta / Math.abs(wheelDelta);
+        let ds = d / 20;
+        if (this.scale + ds > 0.1) {
+          this.scale += ds;
+          toast.show(`${(this.scale * 100).toFixed(0)}%`, this.el)
+          let { offsetWidth, offsetHeight } = this.node.el
+          let left = ds * offsetWidth;
+          let top = ds * offsetHeight;
+          setStyle(this.node.el, 'transform', `scale(${this.scale},${this.scale})`)
+        }
+      }
+    })
+  }
+
+
+  // 初始化拖拽
+  initGrab() {
+    let ox, oy, tx, ty, dx, dy
     draggable(this.el, {
       start: (e) => {
         if (this.spacePress && this.node) {
           ox = e.clientX;
           oy = e.clientY;
+          tx = this.node.x;
+          ty = this.node.y;
         }
       },
-      drag() {
+      drag: (e) => {
         if (this.spacePress && this.node) {
-
+          dx = ox - e.clientX;
+          dy = oy - e.clientY;
+          setStyle(this.node.el, 'left', tx - dx + 'px')
+          setStyle(this.node.el, 'top', ty - dy + 'px')
         }
       },
-      end() { }
+      end: () => {
+        if (this.node) {
+          this.node._x = tx - dx;
+          this.node._y = ty - dy;
+        }
+      }
     })
   }
 
+  // 外部工具栏对应command
+  // 移除psd
   psdRemove(): any {
     if (this.node) this.node.destroy()
     this.node = null;
     this.domRender.create(this.render())
   }
-
+  // 清除所有选中
   clearAllLayers() {
     if (this.node) this.node.clearAllLayers()
   }
-
+  // 导出所有选中图层的图片
   exportLayerImages() {
     if (this.node) this.node.exportLayerImages()
   }
 
+  // 处理PSD文件
   async analysis(filename) {
     this.psd = await PSD.open(filename)
     this.transform.setOrignal(this.psd.tree().width)
@@ -87,7 +133,7 @@ export default class PSDEditor extends Editor {
     this.domRender.update(this.render())
   }
 
-
+  // 选择PSD文件
   onSelectFile() {
     ipcRenderer.send('open-file-dialog')
   }
