@@ -4,7 +4,7 @@ import Tree from "../element/psd/tree";
 import Editor from "./editor";
 import Transform from "../helper/transform";
 import { draggable, offset } from '../utils';
-import { setStyle, on } from 'wind-dom';
+import { setStyle, on, addClass, removeClass } from 'wind-dom';
 import toast from './../components/toast';
 
 import * as conf from '../../conf';
@@ -34,6 +34,8 @@ export default class PSDEditor extends Editor {
   protected node: Tree
   // 是否按下空格键
   spacePress: false
+  // 是否按下alt键
+  altPress: false
   // 视力原始宽度
   viewWidth: number
   // 缩放比例
@@ -63,18 +65,24 @@ export default class PSDEditor extends Editor {
 
   // 初始化缩放
   initScale() {
+    let main, timer;
     on(this.el, 'mousewheel', ({ clientX, clientY, wheelDelta }) => {
-      if (this.node) {
+      if (this.altPress && this.node) {
+        main = main || document.querySelector('.zoom');
         let d = wheelDelta / Math.abs(wheelDelta);
         let ds = d / 20;
         if (this.scale + ds > 0.1) {
           this.scale += ds;
+          removeClass(main, d > 0 ? 'zoomOut' : 'zoomIn')
+          addClass(main, d > 0 ? 'zoomIn' : 'zoomOut')
           toast.show(`${(this.scale * 100).toFixed(0)}%`, this.el)
           let { offsetWidth, offsetHeight } = this.node.el
           let left = ds * offsetWidth;
           let top = ds * offsetHeight;
           setStyle(this.node.el, 'transform', `scale(${this.scale},${this.scale})`)
         }
+        clearTimeout(timer)
+        timer = setTimeout(() => main = null, 1000)
       }
     })
   }
@@ -82,7 +90,7 @@ export default class PSDEditor extends Editor {
 
   // 初始化拖拽
   initGrab() {
-    let ox, oy, tx, ty, dx, dy
+    let ox, oy, tx, ty, dx, dy, main;
     draggable(this.el, {
       start: (e) => {
         if (this.spacePress && this.node) {
@@ -90,6 +98,7 @@ export default class PSDEditor extends Editor {
           oy = e.clientY;
           tx = this.node.x;
           ty = this.node.y;
+          main = document.querySelector('.grab')
         }
       },
       drag: (e) => {
@@ -98,12 +107,15 @@ export default class PSDEditor extends Editor {
           dy = oy - e.clientY;
           setStyle(this.node.el, 'left', tx - dx + 'px')
           setStyle(this.node.el, 'top', ty - dy + 'px')
+          addClass(main, 'grabbing')
         }
       },
       end: () => {
         if (this.node) {
           this.node._x = tx - dx;
           this.node._y = ty - dy;
+          removeClass(main, 'grabbing')
+          main = null;
         }
       }
     })

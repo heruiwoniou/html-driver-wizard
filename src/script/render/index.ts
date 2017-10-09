@@ -47,6 +47,11 @@ let graphic = {
         psdEditor.spacePress = true
         addClass(main, 'grab')
       }
+
+      if (!psdEditor.spacePress && e.keyCode == 18) {
+        psdEditor.altPress = true
+        addClass(main, 'zoom')
+      }
     })
 
     window.addEventListener('keyup', (e) => {
@@ -54,6 +59,12 @@ let graphic = {
         psdEditor.spacePress = false
         removeClass(main, 'grab')
         removeClass(main, 'grabbing')
+      }
+      if (psdEditor.altPress && e.keyCode == 18) {
+        psdEditor.altPress = false
+        removeClass(main, 'zoom')
+        removeClass(main, 'zoomIn')
+        removeClass(main, 'zoomOut')
       }
     })
 
