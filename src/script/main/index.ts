@@ -1,3 +1,3 @@
-import init from './window';
+import init from "./window";
 
-init()
+init();

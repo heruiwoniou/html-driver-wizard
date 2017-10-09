@@ -1,41 +1,46 @@
-import * as events from 'events';
-import * as h from 'virtual-dom/h';
-import { Mounted } from '../element/hook';
-import DomRender from '../helper/dom-render';
+import * as events from "events";
+import * as h from "virtual-dom/h";
+import { Mounted } from "../element/hook";
+import DomRender from "../helper/dom-render";
 
 interface IButton {
-  name: string, cls: string, cmd: string
+  name: string; cls: string; cmd: string;
 }
 
 export default class Bar extends events.EventEmitter {
-  private buttons: (IButton | string)[]
+  private buttons: Array<IButton | string>;
   private el: any;
   private mountTarget: any;
-  private mounted: boolean
-  private domRender: DomRender
-  constructor(buttons: (IButton | string)[]) {
-    super()
-    this.buttons = buttons
+  private mounted: boolean;
+  private domRender: DomRender;
+  constructor(buttons: Array<IButton | string>, toAppend?: Element) {
+    super();
+    this.buttons = buttons;
+    if (toAppend) {
+      this.mount(toAppend);
+    }
   }
 
-  mount(el: any) {
-    this.domRender = new DomRender(el)
-    this.domRender.create(this.render())
+  public mount(el: any) {
+    this.domRender = new DomRender(el);
+    this.domRender.create(this.render());
     return this;
   }
 
-  setState(buttons: (IButton | string)[]) {
+  public setState(buttons: Array<IButton | string>) {
 
   }
 
-  render() {
+  public render() {
     return (
       <ul className="bar-container" mounted={
-        Mounted(node => {
+        Mounted((node) => {
           if (!this.mounted) {
-            this.el = node
+            this.el = node;
             this.mounted = true;
-            if (this.mountTarget) this.mountTarget.appendChild(this.el)
+            if (this.mountTarget) {
+              this.mountTarget.appendChild(this.el);
+            }
           }
         })
       }>
@@ -44,17 +49,21 @@ export default class Bar extends events.EventEmitter {
             return (
               <li>
                 {
-                  (typeof btn === 'string') ? (
+                  (typeof btn === "string") ? (
                     <span></span>
                   ) : (
-                      <a href="javascript:;" title={btn.name} className={btn.cls} onclick={(e) => this.emit('click', e, btn.cmd)}></a>
+                      <a href="javascript:;"
+                        title={btn.name}
+                        className={btn.cls}
+                        onclick={(e) => this.emit("click", e, btn.cmd)}
+                      ></a>
                     )
                 }
               </li>
-            )
+            );
           })
         }
       </ul>
-    )
+    );
   }
 }

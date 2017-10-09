@@ -1,17 +1,17 @@
-var isDragging = false;
-var supportTouch = 'ontouchstart' in window;
+let isDragging = false;
+const supportTouch = "ontouchstart" in window;
 
 export function draggable(element, options) {
-  var moveFn = function (event) {
+  const moveFn = (event) => {
     if (options.drag) {
       options.drag(supportTouch ? event.changedTouches[0] || event.touches[0] : event);
     }
   };
 
-  var endFn = function (event) {
+  const endFn = (event) => {
     if (!supportTouch) {
-      document.removeEventListener('mousemove', moveFn);
-      document.removeEventListener('mouseup', endFn);
+      document.removeEventListener("mousemove", moveFn);
+      document.removeEventListener("mouseup", endFn);
     }
     document.onselectstart = null;
     document.ondragstart = null;
@@ -23,14 +23,16 @@ export function draggable(element, options) {
     }
   };
 
-  element.addEventListener(supportTouch ? 'touchstart' : 'mousedown', function (event) {
-    if (isDragging) return;
-    document.onselectstart = function () { return false; };
-    document.ondragstart = function () { return false; };
+  element.addEventListener(supportTouch ? "touchstart" : "mousedown", (event) => {
+    if (isDragging) {
+      return;
+    }
+    document.onselectstart = () => false;
+    document.ondragstart = () => false;
 
     if (!supportTouch) {
-      document.addEventListener('mousemove', moveFn);
-      document.addEventListener('mouseup', endFn);
+      document.addEventListener("mousemove", moveFn);
+      document.addEventListener("mouseup", endFn);
     }
     isDragging = true;
 
@@ -41,8 +43,8 @@ export function draggable(element, options) {
   }, false);
 
   if (supportTouch) {
-    element.addEventListener('touchmove', moveFn);
-    element.addEventListener('touchend', endFn);
-    element.addEventListener('touchcancel', endFn);
+    element.addEventListener("touchmove", moveFn);
+    element.addEventListener("touchend", endFn);
+    element.addEventListener("touchcancel", endFn);
   }
 }

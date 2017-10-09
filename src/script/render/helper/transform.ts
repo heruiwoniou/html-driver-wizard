@@ -1,39 +1,39 @@
-import * as events from 'events'
+import * as events from "events";
 
 export default class Transform extends events.EventEmitter {
-  unit: string;
-  original: number;
-  map: number;
-  scale: number;
+  public unit: string;
+  public original: number;
+  public map: number;
+  public scale: number;
 
   constructor(original: number, map: number, unit?: string) {
-    super()
+    super();
     this.original = original;
     this.map = map;
-    this.unit = unit ? unit : 'px'
+    this.unit = unit ? unit : "px";
   }
 
-  setOrignal(orignialNumber: number) {
-    this.original = orignialNumber
+  public setOrignal(orignialNumber: number) {
+    this.original = orignialNumber;
   }
 
-  setMap(mapNumber: number) {
-    this.map = mapNumber
+  public setMap(mapNumber: number) {
+    this.map = mapNumber;
   }
 
-  setUnit(unitString: string) {
+  public setUnit(unitString: string) {
     this.unit = unitString;
   }
 
-  convert(realNumber: number): number {
-    return realNumber * this.map / this.original
+  public convert(realNumber: number): number {
+    return realNumber * this.map / this.original;
   }
 
-  convertUnit(realNumber: number): string {
-    return this.convert(realNumber) + this.unit
+  public convertUnit(realNumber: number): string {
+    return this.convert(realNumber) + this.unit;
   }
 
-  reverseConvert(thisNumber: number): number {
-    return thisNumber * this.original / this.map
+  public reverseConvert(thisNumber: number): number {
+    return thisNumber * this.original / this.map;
   }
 }

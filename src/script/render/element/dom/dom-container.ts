@@ -1,12 +1,12 @@
-import Base from "./../base";
-import { relative } from "../decorators/position";
-import Container from "./container"
-import { BaseDisplay } from "../const";
 import Transform from "../../helper/transform";
+import { BaseDisplay } from "../const";
+import { relative } from "../decorators";
+import Base from "./../base";
+import Container from "./container";
 
 /**
- * DOM 最外层框体 
- * 
+ * DOM 最外层框体
+ *
  * @export
  * @class DOMContainer
  * @extends {Container}
@@ -14,20 +14,20 @@ import Transform from "../../helper/transform";
 @relative
 export default class DOMContainer extends Container {
 
-  constructor(children?: Array<Base>) {
+  constructor(children?: Base[]) {
     super({
       x: 0,
       y: 0,
       width: BaseDisplay.FULL,
-      height: BaseDisplay.FULL
-    }, children)
-    this.type = "ts-dom-background"
+      height: BaseDisplay.FULL,
+    }, children);
+    this.type = "ts-dom-background";
 
-    this.isRoot = true
+    this.isRoot = true;
   }
 
-  setTransform(value) {
-    this.transform = value
+  public setTransform(value) {
+    this.transform = value;
   }
 
 }
