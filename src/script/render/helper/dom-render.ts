@@ -12,7 +12,9 @@ export default class DomRender {
     this.el = dom;
   }
   public create(tree) {
-    forEach(this.el.childNodes, (el) => this.el.removeChild(el));
+    if (this.tree) {
+      this.el.removeChild(this.rootNode);
+    }
     this.tree = tree;
     this.rootNode = create(tree);
     this.el.appendChild(this.rootNode);
@@ -23,5 +25,4 @@ export default class DomRender {
     this.rootNode = patch(this.rootNode, patches);
     this.tree = tree;
   }
-
 }

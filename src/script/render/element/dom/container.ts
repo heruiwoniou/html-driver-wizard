@@ -24,6 +24,7 @@ export default class Container extends Base {
   protected originalY: number;
   public width: number;
   public height: number;
+  public background: string;
 
   constructor({ x, y, width, height }: IContainerparameter, children?: Base[]) {
     super("ts-dom-container", children);
@@ -72,6 +73,7 @@ export default class Container extends Base {
         top: this.rootTransform.convertUnit(this.y),
         width: this.width === BaseDisplay.FULL ? "100%" : this.rootTransform.convertUnit(this.width),
         height: this.height === BaseDisplay.FULL ? "100%" : this.rootTransform.convertUnit(this.height),
+        backgroundImage: this.background ? `url(${this.background})` : "none",
       },
     });
     return super.render(vproperties);

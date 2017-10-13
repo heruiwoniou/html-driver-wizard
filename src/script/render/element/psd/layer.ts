@@ -41,6 +41,9 @@ export default class Layer extends PSDBase {
       }
     } else {
       removeClass(this.el, "selected");
+      if (self) {
+        this.root.clearLayer(this);
+      }
     }
   }
 

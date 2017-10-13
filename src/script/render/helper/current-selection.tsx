@@ -17,18 +17,18 @@ export default class CurrentSelection {
   constructor() {
     this.domRender = new DomRender(document.querySelector(".html"));
     this.domRender.create(this.render());
-    this.outClickListener = () => {
-      this.clear();
-    };
+    // this.outClickListener = () => {
+    //   this.clear();
+    // };
   }
   public set(base: ICurrent) {
-    this.current = base;
+    this.current = base === this.current ? null : base;
     this.domRender.update(this.render());
-    document.addEventListener("click", this.outClickListener, false);
+    // document.addEventListener("click", this.outClickListener, false);
   }
   public clear() {
     this.current = null;
-    document.removeEventListener("click", this.outClickListener);
+    // document.removeEventListener("click", this.outClickListener);
     this.domRender.update(this.render());
   }
   public render() {

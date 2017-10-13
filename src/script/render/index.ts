@@ -5,10 +5,11 @@ import PSDEditor from "./editor/psd-editor";
 
 import { addClass, removeClass, setStyle } from "wind-dom";
 
-let htmlEditor, psdEditor;
+let htmlEditor, psdEditor: PSDEditor;
 let htmlbar, psdbar;
 let html, source;
 let main;
+
 const graphic = {
   run() {
 
@@ -22,11 +23,11 @@ const graphic = {
   initialize() {
     htmlEditor = HtmlEditor.initialize();
     psdEditor = PSDEditor.initialize();
-
     htmlbar = new Bar(
       [
         { name: "清空", cls: "fa fa-trash-o", cmd: "html-remove" },
         "|",
+        { name: "sticky-note-o", cls: "fa fa-sticky-note-o", cmd: "html-create-new" },
       ],
       document.querySelector(".html-toolbar"));
 
@@ -36,13 +37,14 @@ const graphic = {
         { name: "清空选择", cls: "fa fa-times-rectangle-o", cmd: "clear-all-layers" },
         "|",
         { name: "切片导出", cls: "fa fa-image", cmd: "export-layer-images" },
+        { name: "导出到内容", cls: "fa fa-files-o", cmd: "export-layer-images2container", args: [htmlEditor] },
       ], document.querySelector(".psd-toolbar"));
 
   },
   registerEvent() {
 
-    htmlbar.on("click", (e, ...args) => htmlEditor.invoke(...args));
-    psdbar.on("click", (e, ...args) => psdEditor.invoke(...args));
+    htmlbar.on("click", (e, cmd, ...args) => htmlEditor.invoke(cmd, ...args));
+    psdbar.on("click", (e, cmd, ...args) => psdEditor.invoke(cmd, ...args));
 
     window.addEventListener("keydown", (e) => {
       if (!psdEditor.spacePress && e.keyCode === 32) {

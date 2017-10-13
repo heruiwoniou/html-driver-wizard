@@ -58,6 +58,10 @@ export default class Base extends events.EventEmitter {
     } while ((parent = parent.parent));
   }
 
+  public splice(...args) {
+    return splice(this, ...args);
+  }
+
   public push(...args) {
     args.forEach((child) => child.parent = this);
     return push(this, ...args);

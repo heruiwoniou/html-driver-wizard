@@ -13,6 +13,8 @@ import * as PSD from "psd";
 import * as velocity from "velocity-animate";
 import * as h from "virtual-dom/h";
 import * as conf from "../../conf";
+import Layer from "../element/psd/layer";
+import HtmlEditor from "./html-editor";
 
 /**
  * PSD呈现及编辑框
@@ -40,21 +42,21 @@ export default class PSDEditor extends Editor {
    * @type {Tree}
    * @memberof PSDEditor
    */
-  protected node: Tree;
+  public node: Tree;
   /**
    *  是否按下空格键
    *
-   * @type {false}
+   * @type {boolean}
    * @memberof PSDEditor
    */
-  public spacePress: false;
+  public spacePress: boolean;
   /**
    *  是否按下alt键
    *
-   * @type {false}
+   * @type {boolean}
    * @memberof PSDEditor
    */
-  public altPress: false;
+  public altPress: boolean;
   /**
    *  视力原始宽度
    *
@@ -73,6 +75,8 @@ export default class PSDEditor extends Editor {
   constructor() {
     super();
 
+    this.spacePress = false;
+    this.altPress = false;
     this.el = document.querySelector(".psd");
     this.domRender = new DomRender(this.el);
     this.viewWidth = this.el.offsetWidth;
@@ -98,30 +102,30 @@ export default class PSDEditor extends Editor {
    */
   public initScale() {
     let main, timer;
+    const { left, top } = offset(this.el);
     on(this.el, "mousewheel", ({ clientX, clientY, wheelDelta }) => {
       if (this.altPress && this.node) {
         main = main || document.querySelector(".zoom");
         const d = wheelDelta / Math.abs(wheelDelta);
         const ds = d / 20;
         if (this.scale + ds > 0.1) {
-          const oldScale = this.scale;
+          const oldscale = this.scale;
           this.scale += ds;
           removeClass(main, d > 0 ? "zoomOut" : "zoomIn");
           addClass(main, d > 0 ? "zoomIn" : "zoomOut");
-          toast.show(`${(this.scale * 100).toFixed(0)}%`, this.el);
+          const { left: a, top: b } = offset(this.node.el);
           const { offsetWidth, offsetHeight } = this.node.el;
-          const { left, top } = offset(this.node.el);
-          const computedLeft = - d * offsetWidth * (1 - oldScale)
-            * (clientX - left) / (offsetWidth * oldScale);
-          const computedTop = - d * offsetHeight * (1 - oldScale)
-            * (clientY - top) / (offsetHeight * oldScale);
-          console.log((clientX - left) / (offsetWidth * oldScale));
           const { originalX, originalY } = this.node;
+          const dx = - offsetWidth * ds;
+          const dy = - offsetHeight * ds;
+          const computedLeft = dx * (clientX - left - originalX) / (offsetWidth * oldscale);
+          const computedTop = dy * (clientY - top - originalY) / (offsetHeight * oldscale);
           setStyle(this.node.el, "transform", `scale(${this.scale},${this.scale})`);
           setStyle(this.node.el, "left", (originalX + computedLeft) + "px");
           setStyle(this.node.el, "top", (originalY + computedTop) + "px");
           this.node.originalX = originalX + computedLeft;
           this.node.originalY = originalY + computedTop;
+          toast.show(`${(this.scale * 100).toFixed(0)}%`, this.el);
         }
         clearTimeout(timer);
         timer = setTimeout(() => main = null, 1000);
@@ -173,7 +177,7 @@ export default class PSDEditor extends Editor {
    * @returns {*}
    * @memberof PSDEditor
    */
-  public psdRemove(): any {
+  public psdRemove() {
     if (this.node) {
       this.node.destroy();
     }
@@ -198,6 +202,17 @@ export default class PSDEditor extends Editor {
   public exportLayerImages() {
     if (this.node) {
       this.node.exportLayerImages();
+    }
+  }
+
+  public async exportLayerImages2container(htmlEditor: HtmlEditor) {
+    const layers: Layer[] = this.node.selectedLayers.slice(0, 1);
+    if (layers.length !== 0 && htmlEditor.selectedNode) {
+      const o: Layer = layers[0];
+      const fileName: string = o.layer.name + "_" + Math.round(Math.random() * 1e3) + ".png";
+      const savePath: string = path.join(conf.assetsPath, fileName);
+      await o.layer.saveAsPng(savePath);
+      htmlEditor.createContainer(o.staticX, o.staticY, o.width, o.height, "assets/" + fileName);
     }
   }
 

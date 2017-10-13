@@ -4,7 +4,10 @@ import { Mounted } from "../element/hook";
 import DomRender from "../helper/dom-render";
 
 interface IButton {
-  name: string; cls: string; cmd: string;
+  name: string;
+  cls: string;
+  cmd: string;
+  args?: any[];
 }
 
 export default class Bar extends events.EventEmitter {
@@ -55,7 +58,7 @@ export default class Bar extends events.EventEmitter {
                       <a href="javascript:;"
                         title={btn.name}
                         className={btn.cls}
-                        onclick={(e) => this.emit("click", e, btn.cmd)}
+                        onclick={(e) => this.emit("click", e, btn.cmd, ...(btn.args || []))}
                       ></a>
                     )
                 }

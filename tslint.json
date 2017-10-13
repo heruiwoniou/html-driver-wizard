@@ -10,7 +10,8 @@
     "space-before-function-paren": false,
     "member-ordering": false,
     "no-console": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "max-line-length": false
   },
   "jsRules": {}
 }

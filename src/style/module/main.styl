@@ -12,18 +12,22 @@
 
   .split-line {
     position: relative;
-    width: ($mainHeaderHeight / 3);
+    width: 2px;
+    background: ideColor;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    // cursor: pointer;
 
-    &:after {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), alpha(#ccc - 50%, 0.2), rgba(0, 0, 0, 0));
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+    // &:after {
+    //   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), alpha(#ccc - 50%, 0.2), rgba(0, 0, 0, 0));
+    //   content: '';
+    //   position: absolute;
+    //   top: 0;
+    //   bottom: 0;
+    //   width: 2px;
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    // }
   }
 
   .toolbar {
@@ -34,10 +38,10 @@
     display: flex;
 
     [class*='toolbar'] {
-      width: 'calc(50% - %s)' % ($mainHeaderHeight / 6);
+      width: 'calc(50% - %s)' % 2px;
 
       &.psd-toolbar {
-        margin-left: ($mainHeaderHeight / 3);
+        margin-left: 2px;
       }
     }
   }
@@ -51,7 +55,7 @@
 
   .html, .psd {
     overflow: hidden;
-    width: 'calc(50% - %s)' % ($mainHeaderHeight / 6);
+    width: 'calc(50% - %s)' % 2px;
     position: relative;
 
     &.resize {

@@ -1,5 +1,7 @@
+let path = require('path')
 var conf = {
   root: process.cwd(),
+  assetsPath: path.join(process.cwd(), 'assets'),
 
   view: {
     mainWidth: 1600,
