@@ -3,8 +3,8 @@ import * as merge from "merge";
 import { VProperties } from "virtual-dom";
 import * as h from "virtual-dom/h";
 import Transform from "../helper/transform";
+import { absolute } from "./../decorators";
 import { forEach, push, slice, splice } from "./../utils";
-import { absolute } from "./decorators";
 import { Mounted } from "./hook";
 
 /**

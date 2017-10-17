@@ -46,13 +46,23 @@ export default class Container extends Base {
   }
 
   public get x(): number {
-    const parent: Container = this.parent as Container;
-    return parent ? this.originalX - parent.x : this.originalX;
+    let resultX = this.originalX;
+    let parent: Container = this as Container;
+    while (!parent.isRoot && (parent = parent.parent as Container)) {
+      if (parent.isRoot) { return resultX; }
+      resultX -= parent.x;
+    }
+    return resultX;
   }
 
   public get y(): number {
-    const parent: Container = this.parent as Container;
-    return parent ? this.originalY - parent.y : this.originalY;
+    let resultY = this.originalY;
+    let parent: Container = this as Container;
+    while (!parent.isRoot && (parent = parent.parent as Container)) {
+      if (parent.isRoot) { return resultY; }
+      resultY -= parent.y;
+    }
+    return resultY;
   }
 
   protected onselecthandler(container?: Container) {

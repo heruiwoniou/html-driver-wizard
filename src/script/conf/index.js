@@ -4,7 +4,7 @@ var conf = {
   assetsPath: path.join(process.cwd(), 'assets'),
 
   view: {
-    mainWidth: 1600,
+    mainWidth: 1000,
     mainHeight: 900,
 
     mainHeaderHeight: 40,

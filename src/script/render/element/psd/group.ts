@@ -1,5 +1,5 @@
 import { BaseDisplay } from "../const";
-import { relative } from "../decorators";
+import { relative } from "./../../decorators";
 import Base from "./../base";
 import Layer from "./layer";
 import PSDBase from "./psd-base";

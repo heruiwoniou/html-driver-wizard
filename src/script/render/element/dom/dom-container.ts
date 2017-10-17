@@ -1,6 +1,6 @@
 import Transform from "../../helper/transform";
 import { BaseDisplay } from "../const";
-import { relative } from "../decorators";
+import { relative } from "./../../decorators";
 import Base from "./../base";
 import Container from "./container";
 
@@ -14,6 +14,8 @@ import Container from "./container";
 @relative
 export default class DOMContainer extends Container {
 
+  public moveX: number;
+  public moveY: number;
   constructor(children?: Base[]) {
     super({
       x: 0,

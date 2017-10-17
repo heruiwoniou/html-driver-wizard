@@ -1,10 +1,10 @@
-import * as conf from "../../../conf";
-import Transform from "../../helper/transform";
-import { when } from "../../utils";
-import { BaseDisplay } from "../const";
-import { relative } from "../decorators";
-import { Mounted } from "../hook";
+import * as conf from "./../../../conf";
+import { relative } from "./../../decorators";
+import Transform from "./../../helper/transform";
+import { when } from "./../../utils";
 import Base from "./../base";
+import { BaseDisplay } from "./../const";
+import { Mounted } from "./../hook";
 import PSDBase from "./psd-base";
 
 import { ipcRenderer, shell } from "electron";
@@ -22,6 +22,9 @@ export default class Tree extends PSDBase {
 
   private psd: any;
   private tree: any;
+
+  public moveX: number;
+  public moveY: number;
 
   private mounted: boolean;
 
@@ -45,6 +48,8 @@ export default class Tree extends PSDBase {
     this.setMaxListeners(100);
     this.analysis();
     this.selectedLayers = [];
+    this.moveX = 0;
+    this.moveY = 0;
 
     ipcRenderer.on("selected-directory", (event, savePaths) => {
       this.saveLayerImages2Path(savePaths[0]);
@@ -112,8 +117,8 @@ export default class Tree extends PSDBase {
     const self = this;
     vproperties = merge.recursive(vproperties, {
       style: {
-        left: this.rootTransform.convertUnit(this.x),
-        top: this.rootTransform.convertUnit(this.y),
+        left: this.moveX,
+        top: this.moveY,
         width: this.width === BaseDisplay.FULL ? "100%" : this.rootTransform.convertUnit(this.width),
         height: this.height === BaseDisplay.FULL ? "100%" : this.rootTransform.convertUnit(this.height),
         position: (this as any).position,

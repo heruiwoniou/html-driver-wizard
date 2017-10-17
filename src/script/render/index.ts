@@ -9,6 +9,7 @@ let htmlEditor, psdEditor: PSDEditor;
 let htmlbar, psdbar;
 let html, source;
 let main;
+const global: any = window;
 
 const graphic = {
   run() {
@@ -23,6 +24,8 @@ const graphic = {
   initialize() {
     htmlEditor = HtmlEditor.initialize();
     psdEditor = PSDEditor.initialize();
+    global.htmlEditor = htmlEditor;
+    global.psdEditor = psdEditor;
     htmlbar = new Bar(
       [
         { name: "清空", cls: "fa fa-trash-o", cmd: "html-remove" },
@@ -46,36 +49,12 @@ const graphic = {
     htmlbar.on("click", (e, cmd, ...args) => htmlEditor.invoke(cmd, ...args));
     psdbar.on("click", (e, cmd, ...args) => psdEditor.invoke(cmd, ...args));
 
-    window.addEventListener("keydown", (e) => {
-      if (!psdEditor.spacePress && e.keyCode === 32) {
-        psdEditor.spacePress = true;
-        addClass(main, "grab");
-      }
-
-      if (!psdEditor.spacePress && e.keyCode === 18) {
-        psdEditor.altPress = true;
-        addClass(main, "zoom");
-      }
-    });
-
-    window.addEventListener("keyup", (e) => {
-      if (psdEditor.spacePress && e.keyCode === 32) {
-        psdEditor.spacePress = false;
-        removeClass(main, "grab");
-        removeClass(main, "grabbing");
-      }
-      if (psdEditor.altPress && e.keyCode === 18) {
-        psdEditor.altPress = false;
-        removeClass(main, "zoom");
-        removeClass(main, "zoomIn");
-        removeClass(main, "zoomOut");
-      }
-    });
-
     document.querySelector("header a.fa-close").addEventListener("click", function () {
       ipcRenderer.sendSync("win-close");
     });
+
     let resizeTime;
+
     window.addEventListener("resize", function () {
       addClass(html, "resize");
       addClass(source, "resize");

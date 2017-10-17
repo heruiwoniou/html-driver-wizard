@@ -1,4 +1,4 @@
-import { relative } from "../decorators";
+import { relative } from "./../../decorators";
 import Base from "./../base";
 import Loading from "./loading";
 
