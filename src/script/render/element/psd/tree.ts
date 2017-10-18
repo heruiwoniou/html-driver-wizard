@@ -117,8 +117,8 @@ export default class Tree extends PSDBase {
     const self = this;
     vproperties = merge.recursive(vproperties, {
       style: {
-        left: this.moveX,
-        top: this.moveY,
+        left: this.moveX + "px",
+        top: this.moveY + "px",
         width: this.width === BaseDisplay.FULL ? "100%" : this.rootTransform.convertUnit(this.width),
         height: this.height === BaseDisplay.FULL ? "100%" : this.rootTransform.convertUnit(this.height),
         position: (this as any).position,

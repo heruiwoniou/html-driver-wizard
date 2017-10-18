@@ -28,9 +28,7 @@ const graphic = {
     global.psdEditor = psdEditor;
     htmlbar = new Bar(
       [
-        { name: "清空", cls: "fa fa-trash-o", cmd: "html-remove" },
-        "|",
-        { name: "sticky-note-o", cls: "fa fa-sticky-note-o", cmd: "html-create-new" },
+        { name: "清空", cls: "fa fa-trash-o", cmd: "create-new" },
       ],
       document.querySelector(".html-toolbar"));
 

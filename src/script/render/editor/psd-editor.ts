@@ -76,7 +76,7 @@ export default class PSDEditor extends Editor implements IScale, IDrag {
    * @memberof PSDEditor
    */
   public viewWidth: number;
-
+  private originalMain: any;
   constructor() {
     super();
 
@@ -92,6 +92,18 @@ export default class PSDEditor extends Editor implements IScale, IDrag {
       }
     });
 
+  }
+
+  public get moveTargets(): Array<{ moveX: number, moveY: number, el: any }> {
+    return [this.node];
+  }
+
+  public get scaleTargets(): Array<{ moveX: number, moveY: number, el: any }> {
+    return [this.node];
+  }
+
+  public get main() {
+    return this.originalMain ? this.originalMain : (this.originalMain = document.querySelector(".main"));
   }
 
   // 外部工具栏对应command
@@ -136,13 +148,14 @@ export default class PSDEditor extends Editor implements IScale, IDrag {
     const layers: Layer[] = this.node.selectedLayers;
     if (layers.length !== 0 && htmlEditor.selectedNode) {
       for (const o of layers) {
-        if (!o.background) {
-          o.background = Math.round(Math.random() * 1e5).toString();
-          const fileName: string = o.background + ".png";
+        const background = Math.round(Math.random() * 1e5).toString();
+        const fileName: string = background + ".png";
+        if (!o.buid) {
+          o.buid = background;
           const savePath: string = path.join(conf.assetsPath, fileName);
-          await o.layer.saveAsPng(savePath);
-          htmlEditor.createContainer(this.transform.original, o.staticX, o.staticY, o.width, o.height, "assets/" + fileName);
+          await o.saveAsPng(savePath);
         }
+        htmlEditor.createContainer(this.transform.original, o.staticX, o.staticY, o.width, o.height, o.buid);
       }
     }
   }

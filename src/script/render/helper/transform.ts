@@ -13,8 +13,8 @@ export default class Transform extends events.EventEmitter {
     this.unit = unit ? unit : "px";
   }
 
-  public setOrignal(orignialNumber: number) {
-    this.original = orignialNumber;
+  public setOrignal(originalNumber: number) {
+    this.original = originalNumber;
   }
 
   public setMap(mapNumber: number) {

@@ -25,6 +25,7 @@ export default class Container extends Base {
   public width: number;
   public height: number;
   public background: string;
+  public buid: string;
 
   constructor({ x, y, width, height }: IContainerparameter, children?: Base[]) {
     super("ts-dom-container", children);
@@ -77,7 +78,7 @@ export default class Container extends Base {
   }
 
   public render(vproperties: VProperties = {}) {
-    vproperties = merge.recursive(true, vproperties, {
+    vproperties = merge.recursive(true, {
       style: {
         left: this.rootTransform.convertUnit(this.x),
         top: this.rootTransform.convertUnit(this.y),
@@ -85,7 +86,7 @@ export default class Container extends Base {
         height: this.height === BaseDisplay.FULL ? "100%" : this.rootTransform.convertUnit(this.height),
         backgroundImage: this.background ? `url(${this.background})` : "none",
       },
-    });
+    }, vproperties);
     return super.render(vproperties);
   }
 }

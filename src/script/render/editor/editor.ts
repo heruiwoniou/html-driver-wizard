@@ -35,11 +35,11 @@ export default class Editor extends events.EventEmitter {
   protected transform: Transform;
   /**
    * editor's dom
-   * @protected
+   * @public
    * @type {*}
    * @memberof Editor
    */
-  protected el: any;
+  public el: any;
 
   constructor() {
     super();

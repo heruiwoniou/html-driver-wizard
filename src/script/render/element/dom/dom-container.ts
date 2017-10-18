@@ -24,12 +24,34 @@ export default class DOMContainer extends Container {
       height: BaseDisplay.FULL,
     }, children);
     this.type = "ts-dom-background";
-
+    this.moveX = 0;
+    this.moveY = 0;
     this.isRoot = true;
+  }
+
+  public hasBuid(buid: string) {
+    const walk = function (node) {
+      for (const o of node) {
+        if (o.buid !== undefined && o.buid === buid) {
+          return true;
+        }
+        if (walk(o)) { return true; }
+      }
+      return false;
+    };
+    return walk(this);
   }
 
   public setTransform(value) {
     this.transform = value;
   }
 
+  public render() {
+    return super.render({
+      style: {
+        left: this.moveX + "px",
+        top: this.moveY + "px",
+      },
+    });
+  }
 }

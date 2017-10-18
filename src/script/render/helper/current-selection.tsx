@@ -1,3 +1,4 @@
+import * as events from "events";
 import * as h from "virtual-dom/h";
 import { BaseDisplay } from "../element/const";
 import DomRender from "./dom-render";
@@ -11,12 +12,15 @@ interface ICurrent {
   el: HTMLElement;
 }
 
-export default class CurrentSelection {
+export default class CurrentSelection extends events.EventEmitter {
   private current: ICurrent;
   private domRender: DomRender;
   private elClickListener: any;
   public transform: Transform;
+  public moveX: number;
+  public moveY: number;
   constructor(transform?: Transform) {
+    super();
     if (transform) { this.transform = transform; }
     this.domRender = new DomRender(document.querySelector(".html"));
     this.domRender.create(this.render());
@@ -32,14 +36,29 @@ export default class CurrentSelection {
     this.transform = transform;
   }
   public set(base: ICurrent) {
-    this.current = base === this.current ? null : base;
-    this.domRender.update(this.render());
+    if (base === this.current) {
+      this.clear();
+    } else {
+      this.current = base;
+      this.emit("set", base);
+      this.domRender.update(this.render());
+    }
   }
   public clear() {
     this.current = null;
+    this.emit("clear");
     this.domRender.update(this.render());
   }
+
+  public get el() {
+    return document.querySelector(".ts-current-selection");
+  }
+
   public render() {
+    const domStyle = {
+      left: this.moveX + "px",
+      top: this.moveY + "px",
+    };
     const style = this.current ? {
       left: this.transform.convertUnit(this.current.staticX),
       top: this.transform.convertUnit(this.current.staticY),
@@ -47,11 +66,11 @@ export default class CurrentSelection {
       height: (this.current.height === BaseDisplay.FULL ? "100%" : this.transform.convertUnit(this.current.height)),
     } : null;
     return this.current ? (
-      <div className="ts-current-selection">
+      <div className="ts-current-selection" style={domStyle}>
         <div className="ts-selection-box" style={style}></div>
       </div >
     ) : (
-        <div className="ts-current-selection"></div>
+        <div className="ts-current-selection" style={domStyle}></div>
       );
   }
 }

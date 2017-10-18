@@ -11,7 +11,8 @@
     "member-ordering": false,
     "no-console": false,
     "no-debugger": false,
-    "max-line-length": false
+    "max-line-length": false,
+    "no-bitwise": false
   },
   "jsRules": {}
 }
